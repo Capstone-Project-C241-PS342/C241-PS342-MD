@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="OutlinedBoxWithCustomStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:alpha">0</item>
+        <item name="android:background">@drawable/custom_outline_background</item> <!-- Custom background drawable -->
+    </style>
+
+    <style name="OutlinedBoxEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:alpha">0</item>
+        <item name="android:background">@drawable/custom_outline_background</item> <!-- Custom background drawable -->
+    </style>
+
+    <style name="HintTextAppearance" parent="TextAppearance.Design.Hint">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/itemgestura</item>
+
+        <!-- Tambahan item lain sesuai kebutuhan, seperti textSize, dll -->
+    </style>
+
+</resources>

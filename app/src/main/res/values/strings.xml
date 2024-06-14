@@ -1,0 +1,26 @@
+<resources>
+    <string name="signup_welcome">Daftar ke GESTURA</string>
+    <string name="sudah_punya_akun">Aku sudah punya akun</string>
+    <string name="signup">Daftar</string>
+    <string name="login">Masuk</string>
+    <string name="message_welcome_page">GESTURA membantu kamu berkomunikasi dengan Teman Tuli.</string>
+    <string name="message_login_page">Belum punya akun? Daftar</string>
+    <string name="title_welcome_page">Ayo belajar Bahasa Isyarat bersama GESTURA!</string>
+    <string name="title_signup_page">Daftar ke GESTURA</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <string name="title_login_page">Masuk ke GESTURA</string>
+    <string name="message_signup_page">Sudah punya akun? Masuk</string>
+    <string name="name">Nama</string>
+    <string name="message_main_page">Selamat Belajar di Dicoding.</string>
+    <string name="greeting">Halo %1$s,</string>
+    <string name="logout">Keluar</string>
+
+    <string name="confirm_password">Ulangi Kata Sandi</string>
+
+
+
+
+
+</resources>
