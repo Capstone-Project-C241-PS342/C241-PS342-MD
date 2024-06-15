@@ -39,10 +39,10 @@
         android:layout_marginEnd="32dp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintHorizontal_bias="0.389"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        app:layout_constraintVertical_bias="0.406"
+        app:layout_constraintVertical_bias="0.25"
         app:srcCompat="@drawable/logo_gestura" />
 
     <TextView
@@ -56,6 +56,7 @@
         android:backgroundTint="@color/navy"
         android:fontFamily="@font/poppins_bold"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
         tools:alpha="100"
         tools:layout_editor_absoluteY="384dp" />
 
@@ -74,8 +75,8 @@
         tools:alpha="100">
 
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/OutlinedBoxEditText"
             android:id="@+id/emailEditText"
+            style="@style/OutlinedBoxEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Gestura</string>
     <string name="signup_welcome">Daftar ke GESTURA</string>
     <string name="sudah_punya_akun">Aku sudah punya akun</string>
     <string name="signup">Daftar</string>
@@ -9,6 +10,7 @@
     <string name="title_signup_page">Daftar ke GESTURA</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="username">Username</string>
 
     <string name="title_login_page">Masuk ke GESTURA</string>
     <string name="message_signup_page">Sudah punya akun? Masuk</string>

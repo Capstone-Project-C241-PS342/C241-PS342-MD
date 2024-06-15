@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.bangkit.capstone.gestura.data.UserRepository
+import com.bangkit.capstone.gestura.remote.repository.UserRepository
 import com.dicoding.picodiploma.gestura.data.pref.UserModel
 import kotlinx.coroutines.launch
 

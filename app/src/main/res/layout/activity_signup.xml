@@ -46,6 +46,34 @@
         app:srcCompat="@drawable/logo_gestura" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameEditTextLayout"
+        style="@style/OutlinedBoxWithCustomStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="-30dp"
+        android:alpha="0"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        tools:layout_editor_absoluteY="412dp"
+        tools:alpha="100">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/OutlinedBoxEditText"
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="text"
+            android:textAppearance="@style/HintTextAppearance"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailEditTextLayout"
         style="@style/OutlinedBoxWithCustomStyle"
         android:layout_width="0dp"
@@ -55,6 +83,7 @@
         android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/usernameEditTextLayout"
         tools:alpha="100"
         tools:layout_editor_absoluteY="332dp">
 
@@ -64,8 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textEmailAddress"
             android:hint="@string/email"
+            android:inputType="textEmailAddress"
             android:textAppearance="@style/HintTextAppearance"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -78,12 +107,12 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:alpha="0"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/color_password_toggle"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="412dp"
+        app:layout_constraintTop_toBottomOf="@id/emailEditTextLayout"
+        tools:layout_editor_absoluteY="492dp"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/color_password_toggle"
         tools:alpha="100">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -93,35 +122,28 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:hint="@string/email"
+            android:hint="@string/password"
             android:textAppearance="@style/HintTextAppearance"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/confirmPasswordEditTextLayout"
-        style="@style/OutlinedBoxWithCustomStyle"
+    <TextView
+        android:id="@+id/descTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:alpha="0"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="@string/message_signup_page"
+        android:textColor="@color/abugestura"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="492dp"
-
-        tools:alpha="100">
-
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/OutlinedBoxEditText"
-            android:id="@+id/confirmPasswordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        tools:alpha="100" />
 
     <Button
         android:id="@+id/loginButton"
@@ -137,26 +159,7 @@
         android:text="@string/signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/descTextView"
-        tools:alpha="100" />
-
-    <TextView
-        android:id="@+id/descTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="560dp"
-        android:layout_marginEnd="32dp"
-        android:alpha="0"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/message_signup_page"
-        android:textColor="@color/abugestura"
-        android:gravity="center"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
         tools:alpha="100" />
 
     <androidx.constraintlayout.widget.Guideline

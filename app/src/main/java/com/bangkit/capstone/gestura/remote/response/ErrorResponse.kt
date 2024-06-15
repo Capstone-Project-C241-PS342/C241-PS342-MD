@@ -1,12 +1,10 @@
-package com.bangkit.capstone.gestura.data.response
+package com.bangkit.capstone.gestura.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class RegisterResponse(
-
+data class ErrorResponse(
     @field:SerializedName("error")
     val error: Boolean? = null,
-
     @field:SerializedName("message")
     val message: String? = null
 )
