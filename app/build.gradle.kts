@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.bangkit.capstone.gestura"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.bangkit.capstone.gestura"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -41,10 +41,12 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        mlModelBinding = true
     }
 }
 
 dependencies {
+    val cameraxVersion = "1.3.0"
 
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.android.gms:play-services-location:21.2.0")
@@ -65,7 +67,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.activity:activity-ktx:1.7.2")
-
 
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -88,6 +89,25 @@ dependencies {
     //coroutine support
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
+    //tensorflow
+
+    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+    implementation("org.tensorflow:tensorflow-lite-metadata:0.4.4")
+    implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.4")
+
+
+    implementation("org.tensorflow:tensorflow-lite-task-vision-play-services:0.4.4")
+    implementation("org.tensorflow:tensorflow-lite-gpu:2.9.0")
+    implementation("com.google.android.gms:play-services-tflite-support:16.1.0")
+    implementation("com.google.android.gms:play-services-tflite-gpu:16.2.0")
+
+    //uCrop library
+
+
+    //camera
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    implementation("androidx.camera:camera-view:$cameraxVersion")
 
 
 

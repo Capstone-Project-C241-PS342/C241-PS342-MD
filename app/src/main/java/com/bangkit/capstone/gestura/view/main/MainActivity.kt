@@ -12,6 +12,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.gestura.databinding.ActivityMainBinding
 import com.bangkit.capstone.gestura.view.ViewModelFactory
+import com.bangkit.capstone.gestura.view.detectmovement.CameraActivity
+import com.bangkit.capstone.gestura.view.login.LoginActivity
 import com.bangkit.capstone.gestura.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -54,6 +56,9 @@ class MainActivity : AppCompatActivity() {
         binding.logoutButton.setOnClickListener {
             viewModel.logout()
         }
+        binding.cameraButton.setOnClickListener {
+            startActivity(Intent(this, CameraActivity::class.java))
+        }
     }
 
     private fun playAnimation() {
@@ -66,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         val name = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
         val message = ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(100)
         val logout = ObjectAnimator.ofFloat(binding.logoutButton, View.ALPHA, 1f).setDuration(100)
+        val camera = ObjectAnimator.ofFloat(binding.cameraButton, View.ALPHA, 1f).setDuration(100)
 
         AnimatorSet().apply {
             playSequentially(name, message, logout)
