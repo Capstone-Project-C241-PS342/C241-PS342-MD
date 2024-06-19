@@ -6,15 +6,15 @@
         <item name="android:layout_marginStart">32dp</item>
         <item name="android:layout_marginEnd">32dp</item>
         <item name="android:alpha">0</item>
-        <item name="android:background">@drawable/custom_outline_background</item> <!-- Custom background drawable -->
+        <item name="android:background">@drawable/button_outline</item> <!-- Custom background drawable -->
     </style>
 
     <style name="OutlinedBoxEditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-
+        <item name="android:layout_marginBottom">5dp</item>
         <item name="android:alpha">0</item>
-        <item name="android:background">@drawable/custom_outline_background</item> <!-- Custom background drawable -->
+        <item name="android:backgroundTint">@color/trans</item> <!-- Custom background drawable -->
     </style>
 
     <style name="HintTextAppearance" parent="TextAppearance.Design.Hint">

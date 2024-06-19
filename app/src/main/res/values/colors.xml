@@ -8,8 +8,7 @@
     <color name="borderijosignupgestura">#C6E053</color>
     <color name="itemgestura">#141F23</color>
     <color name="abugestura">#808080</color>
-
-
+    <color name="trans">#00FFFFFF</color>
 
 
 </resources>

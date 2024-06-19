@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -13,12 +14,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.gestura.databinding.ActivityMainBinding
 import com.bangkit.capstone.gestura.view.ViewModelFactory
 import com.bangkit.capstone.gestura.view.welcome.WelcomeActivity
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +32,26 @@ class MainActivity : AppCompatActivity() {
             if (!user.isLogin) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
+            }else {
+                binding.tvUsername.text = "Gestura"
+                binding.tvSelamat.text = greetingmessage()
             }
         }
 
         setupView()
         setupAction()
         playAnimation()
+    }
+
+    private fun greetingmessage(): String {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        return when (hour) {
+            in 0..11 -> "Selamat Pagi,"
+            in 12..15 -> "Selamat Siang,"
+            in 16..18 -> "Selamat Sore,"
+            else -> "Selamat Malam,"
+        }
     }
 
     private fun setupView() {
@@ -57,14 +74,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+        ObjectAnimator.ofFloat(binding.ivProfile, View.TRANSLATION_X, -30f, 30f).apply {
             duration = 6000
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
         }.start()
 
-        val name = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
-        val message = ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(100)
+        val name = ObjectAnimator.ofFloat(binding.tvUsername, View.ALPHA, 1f).setDuration(100)
+        val message = ObjectAnimator.ofFloat(binding.tvSelamat, View.ALPHA, 1f).setDuration(100)
         val logout = ObjectAnimator.ofFloat(binding.logoutButton, View.ALPHA, 1f).setDuration(100)
 
         AnimatorSet().apply {

@@ -1,0 +1,16 @@
+<!-- res/drawable/custom_dialog_bg.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/trans"/> <!-- Warna transparan -->
+            <corners android:radius="20dp"/>
+            <stroke android:width="2dp" android:color="@color/ijogestura"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/navy"/> <!-- Warna latar belakang utama -->
+            <corners android:radius="20dp"/>
+        </shape>
+    </item>
+</layer-list>
