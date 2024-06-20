@@ -1,44 +1,36 @@
 package com.bangkit.capstone.gestura.view.detectmovement
 
-import com.bangkit.capstone.gestura.ml.ModelVGG
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.RectF
 import android.os.SystemClock
 import android.util.Log
 import android.view.Surface
 import androidx.camera.core.ImageProxy
 import com.bangkit.capstone.gestura.R
+import com.bangkit.capstone.gestura.ml.ModelVGG16
 import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.common.ops.CastOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.image.ops.Rot90Op
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-import org.tensorflow.lite.task.core.BaseOptions
 import org.tensorflow.lite.task.core.vision.ImageProcessingOptions
-import java.nio.ByteBuffer
-import org.tensorflow.lite.task.vision.classifier.Classifications
-import org.tensorflow.lite.task.vision.classifier.ImageClassifier
 
 class ObjectDetectionHelpe(
     val context: Context,
     val detectorListener: DetectorListener?,
-    val modelName: String = "modelVGG.tflite",
-    var threshold: Float = 0.1f,
-    var maxResults: Int = 3,
-
 ) {
-    private var modelVGG: ModelVGG? = null
-    private var imageClassifier: ImageClassifier? = null
+    private var modelVGG: ModelVGG16? = null
 
     init {
         setupModel()
-//        setupImageClassifier()
     }
 
     private fun setupModel() {
         try {
-            modelVGG = ModelVGG.newInstance(context)
+            modelVGG = ModelVGG16.newInstance(context)
         } catch (e: Exception) {
             detectorListener?.onError(context.getString(R.string.model_initialization_failed))
             Log.d(TAG, e.message.toString())
@@ -53,52 +45,41 @@ class ObjectDetectionHelpe(
         // Convert ImageProxy to Bitmap
         val bitmap = toBitmap(image)
 
-        // Upscale the resized bitmap to 128x128
-        val upscaledBitmap = Bitmap.createScaledBitmap(bitmap, 256, 256, true)
-
         // Ensure the image is resized and rotated correctly
         val imageProcessor = ImageProcessor.Builder()
+            .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.NEAREST_NEIGHBOR))
+            .add(CastOp(DataType.FLOAT32))
             .add(Rot90Op(-image.imageInfo.rotationDegrees / 90))
             .build()
 
-        // Process the upscaled image to a TensorImage
-        val tensorImage = imageProcessor.process(TensorImage.fromBitmap(upscaledBitmap))
+        val tensorImage = imageProcessor.process(TensorImage.fromBitmap(bitmap))
 
         val imageProcessingOptions = ImageProcessingOptions.builder()
             .setOrientation(getOrientationFromRotation(image.imageInfo.rotationDegrees))
             .build()
 
-        val byteBuffer: ByteBuffer = tensorImage.buffer
+        val tensorBuffer: TensorBuffer = tensorImage.tensorBuffer
 
-        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 128, 128, 3), DataType.FLOAT32)
-        inputFeature0.loadBuffer(byteBuffer)
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+        inputFeature0.loadBuffer(tensorImage.buffer)
 
         var inferenceTime = SystemClock.uptimeMillis()
-
-
-
-//        val results = imageClassifier?.classify(tensorImage, imageProcessingOptions)
-//        inferenceTime = SystemClock.uptimeMillis() - inferenceTime
-
         val outputs = modelVGG?.process(inputFeature0)
+        inferenceTime = SystemClock.uptimeMillis() - inferenceTime
+
         val outputFeature0 = outputs?.outputFeature0AsTensorBuffer
 
-//        Log.d("Moza Adirafi", outputs.toString())
-//
-//        Log.d("Rafli Wasis", outputFeature0.toString())
+        val confidences = outputFeature0!!.floatArray
+        var maxPos = 0
+        var maxConfidence = 0f
+        for (i in confidences.indices) {
+            if (confidences[i] > maxConfidence) {
+                maxConfidence = confidences[i]
+                maxPos = i
+            }
+        }
 
-//         Handle the output as needed
         val results = handleOutput(outputFeature0)
-
-        Log.d("Shafa Najwa", results.toString())
-
-
-//        detectorListener?.onResults(
-//            results,
-//            inferenceTime,
-//            tensorImage.height,
-//            tensorImage.width
-//        )
 
         detectorListener?.onResults(
             results,
@@ -119,22 +100,18 @@ class ObjectDetectionHelpe(
         return bitmapBuffer
     }
 
-    private fun handleOutput(outputFeature0: TensorBuffer?): MutableList<String> {
+    private fun handleOutput(outputFeature0: TensorBuffer?): MutableList<DetectionResult> {
         val labels = ('A'..'Z').toList()
         val probabilities = outputFeature0?.floatArray ?: return mutableListOf()
 
-        val probabilitiesList = outputFeature0?.floatArray
-
-        Log.d("Fatrin", probabilities.toString())
-        Log.d("Zidan", probabilitiesList.toString())
-
-        val maxIndex = probabilities.indices.maxByOrNull { probabilities[it] } ?: -1
-        if (maxIndex == -1) return mutableListOf()
-
-        val maxLabel = labels[maxIndex]
-        val maxProbability = probabilities[maxIndex] * 100
-
-        return mutableListOf("$maxLabel: %.2f%%".format(maxProbability))
+        val results = mutableListOf<DetectionResult>()
+        for (i in probabilities.indices) {
+            if (probabilities[i] > 0.5) {  // Consider only high-confidence detections
+                val boundingBox = RectF(0.1f, 0.1f, 0.3f, 0.3f) // Example bounding box
+                results.add(DetectionResult(boundingBox, labels[i].toString(), probabilities[i]))
+            }
+        }
+        return results
     }
 
     companion object {
@@ -153,18 +130,10 @@ class ObjectDetectionHelpe(
     interface DetectorListener {
         fun onError(error: String)
         fun onResults(
-            results: MutableList<String>?,
+            results: MutableList<DetectionResult>?,
             inferenceTime: Long,
             imageHeight: Int,
             imageWidth: Int
-        )
-    }
-
-    interface ClassifierListener {
-        fun onError(error: String)
-        fun onResults(
-            results: List<Classifications>?,
-            inferenceTime: Long
         )
     }
 }

@@ -10,10 +10,15 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.bangkit.capstone.gestura.R
-import org.tensorflow.lite.task.gms.vision.detector.Detection
 import java.text.NumberFormat
 import java.util.LinkedList
 import kotlin.math.max
+
+data class DetectionResult(
+    val boundingBox: RectF,
+    val label: String,
+    val score: Float
+)
 
 class OverlayView @JvmOverloads constructor(
     context: Context,
@@ -24,7 +29,7 @@ class OverlayView @JvmOverloads constructor(
     private var textBackgroundPaint = Paint()
     private var textPaint = Paint()
 
-    private var results: List<Detection> = LinkedList<Detection>()
+    private var results: List<DetectionResult> = LinkedList()
     private var scaleFactor: Float = 1f
 
     private var bounds = Rect()
@@ -48,15 +53,13 @@ class OverlayView @JvmOverloads constructor(
     }
 
     fun setResults(
-        detectionResults: MutableList<Detection>,
+        detectionResults: List<DetectionResult>,
         imageHeight: Int,
         imageWidth: Int,
     ) {
         results = detectionResults
-
-        // PreviewView is in FILL_START mode. So we need to scale up the bounding box to match with
-        // the size that the captured images will be displayed.
         scaleFactor = max(width * 1f / imageWidth, height * 1f / imageHeight)
+        invalidate()
     }
 
     override fun draw(canvas: Canvas) {
@@ -75,8 +78,8 @@ class OverlayView @JvmOverloads constructor(
             canvas.drawRect(drawableRect, boxPaint)
 
             // Create text to display alongside detected objects
-            val drawableText = "${result.categories[0].label} " +
-                    NumberFormat.getPercentInstance().format(result.categories[0].score)
+            val drawableText = "${result.label} " +
+                    NumberFormat.getPercentInstance().format(result.score)
 
             // Draw rect behind display text
             textBackgroundPaint.getTextBounds(drawableText, 0, drawableText.length, bounds)
@@ -85,8 +88,8 @@ class OverlayView @JvmOverloads constructor(
             canvas.drawRect(
                 left,
                 top,
-                left + textWidth + Companion.BOUNDING_RECT_TEXT_PADDING,
-                top + textHeight + Companion.BOUNDING_RECT_TEXT_PADDING,
+                left + textWidth + BOUNDING_RECT_TEXT_PADDING,
+                top + textHeight + BOUNDING_RECT_TEXT_PADDING,
                 textBackgroundPaint
             )
 
@@ -96,11 +99,8 @@ class OverlayView @JvmOverloads constructor(
     }
 
     fun clear() {
-        boxPaint.reset()
-        textBackgroundPaint.reset()
-        textPaint.reset()
+        results = LinkedList()
         invalidate()
-        initPaints()
     }
 
     companion object {

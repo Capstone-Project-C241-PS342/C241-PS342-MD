@@ -25,7 +25,6 @@ class CameraActivity : AppCompatActivity() {
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
     private lateinit var objectDetectorHelper: ObjectDetectionHelpe
 
-
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -42,6 +41,7 @@ class CameraActivity : AppCompatActivity() {
             this,
             REQUIRED_PERMISSION
         ) == PackageManager.PERMISSION_GRANTED
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -70,21 +70,22 @@ class CameraActivity : AppCompatActivity() {
                 }
 
                 override fun onResults(
-                    results: MutableList<String>?,  // Ubah dari List<String>? menjadi MutableList<String>?
+                    results: MutableList<DetectionResult>?,
                     inferenceTime: Long,
                     imageHeight: Int,
                     imageWidth: Int
                 ) {
                     runOnUiThread {
                         if (results != null && results.isNotEmpty()) {
-                            binding.tvResult.text = results.joinToString("\n")
+                            binding.tvResult.text = results.joinToString("\n") {
+                                "${it.label}: ${"%.2f".format(it.score * 100)}%"
+                            }
+                            binding.overlay.setResults(results, imageHeight, imageWidth)
                         } else {
-                            binding.tvResult.text = "gak ada"
+                            binding.tvResult.text = "No objects detected"
+                            binding.overlay.clear()
                         }
                         binding.tvInferenceTime.text = "$inferenceTime ms"
-
-//                        // Force a redraw
-//                        binding.overlay.invalidate()
                     }
                 }
             }
@@ -115,7 +116,7 @@ class CameraActivity : AppCompatActivity() {
                 )
             } catch (exc: Exception) {
                 Toast.makeText(
-                    this@CameraActivity, "Gagal memunculkan kamera.", Toast.LENGTH_SHORT
+                    this@CameraActivity, "Failed to bind camera", Toast.LENGTH_SHORT
                 ).show()
                 Log.e(TAG, "startCamera: ${exc.message}")
             }
@@ -144,6 +145,4 @@ class CameraActivity : AppCompatActivity() {
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
-
 }

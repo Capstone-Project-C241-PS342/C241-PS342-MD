@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-<!--    <com.bangkit.capstone.gestura.view.detectmovement.OverlayView-->
-<!--        android:id="@+id/overlay"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
+    <com.bangkit.capstone.gestura.view.detectmovement.OverlayView
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/tvResult"
