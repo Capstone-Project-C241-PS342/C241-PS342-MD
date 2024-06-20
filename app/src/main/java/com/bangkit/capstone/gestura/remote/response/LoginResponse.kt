@@ -8,12 +8,16 @@ data class LoginResponse(
     @SerializedName("token")
     val token: String,
 
+    @field:SerializedName("username")
+    val username: String? = null,
+
+    @field:SerializedName("profilePictureUrl")
+    val profile_picture_url: String?
 )
 
 data class LoginResult(
 
-    @field:SerializedName("name")
-    val name: String? = null,
+
 
     @field:SerializedName("userId")
     val userId: String? = null,

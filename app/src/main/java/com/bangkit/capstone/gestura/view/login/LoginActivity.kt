@@ -2,6 +2,7 @@ package com.bangkit.capstone.gestura.view.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Dialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -57,12 +59,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        updateLoginButtonState()
+
 
         val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                updateLoginButtonState()
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString().isEmpty()) {
@@ -70,7 +70,6 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     binding.passwordHelper.visibility = View.GONE
                 }
-                updateLoginButtonState()
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -105,23 +104,19 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 login(email, password)
             } else {
+                binding.loading.visibility = View.GONE
                 showAlert("Error", "Pastikan anda mengisi username dan password")
             }
         }
 
         binding.textbtn.setOnClickListener {
             val intent = Intent(this@LoginActivity, SignupActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            finish()
         }
     }
 
-    private fun updateLoginButtonState() {
-        val username = binding.emailEditText.text.toString()
-        val password = binding.passwordEditText.text.toString()
-
-        val isFormFilled = username.isNotEmpty() && password.isNotEmpty()
-        binding.loginButton.isEnabled = isFormFilled
-    }
 
     private fun login(email : String, password: String) {
         lifecycleScope.launch {
@@ -144,16 +139,26 @@ class LoginActivity : AppCompatActivity() {
             .setView(dialogBinding.root)
             .create()
 
-
+        dialogBinding.ivDialog.setImageResource(R.drawable.caution)
         dialogBinding.successDialog.text = "Gabisa masuk nih"
         dialogBinding.successDialogDesc.text = "Coba cek email sama password kamu"
         dialogBinding.dialogLogin.text = "Oke"
 
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
         dialogBinding.dialogLogin.setOnClickListener {
+            binding.loading.visibility = View.GONE
             alertDialog.dismiss()
         }
 
+
         alertDialog.show()
+
+        val window = alertDialog.window
+        val layoutParams = WindowManager.LayoutParams()
+        layoutParams.copyFrom(window?.attributes)
+        layoutParams.width = (resources.displayMetrics.widthPixels * 0.8).toInt() // 80% of screen width
+        window?.attributes = layoutParams
     }
 
     private fun playAnimation() {

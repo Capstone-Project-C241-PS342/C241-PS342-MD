@@ -92,14 +92,7 @@ class SignupActivity : AppCompatActivity() {
     // SignupActivity.kt
     private fun setupAction() {
         val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(
-                s: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-                updateSignupButtonState()
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString().length < 8) {
@@ -107,7 +100,6 @@ class SignupActivity : AppCompatActivity() {
                 } else {
                     binding.passwordHelper.visibility = View.GONE
                 }
-                updateSignupButtonState()
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -148,9 +140,11 @@ class SignupActivity : AppCompatActivity() {
                     if (response == "User registered") {
                         showSuccessDialog()
                     } else if (response.contains("Username or email already exists")) {
-                        Toast.makeText(this@SignupActivity, "Username atau email sudah digunakan", Toast.LENGTH_SHORT).show()
+                        binding.loading.visibility = View.GONE
+                        Toast.makeText(this@SignupActivity, "Ups, username atau email sudah digunakan", Toast.LENGTH_SHORT).show()
                         Log.e("SignupActivity", "Registration error: $response")
                     } else {
+                        binding.loading.visibility = View.GONE
                         Toast.makeText(this@SignupActivity, response, Toast.LENGTH_SHORT).show()
                         Log.e("SignupActivity", "Unknown registration error: $response")
                     }
@@ -163,7 +157,9 @@ class SignupActivity : AppCompatActivity() {
 
         binding.textbtn.setOnClickListener {
             val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -179,6 +175,8 @@ class SignupActivity : AppCompatActivity() {
         dialogBinding.successDialog.text = "Kamu udah terdaftar nih"
         dialogBinding.successDialogDesc.text = "Yuk masuk, terus belajar"
 
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
         dialogBinding.dialogLogin.setOnClickListener {
             alertDialog.dismiss()
             startActivity(Intent(this, LoginActivity::class.java))
@@ -186,17 +184,14 @@ class SignupActivity : AppCompatActivity() {
         }
 
         alertDialog.show()
+
+        val window = alertDialog.window
+        val layoutParams = WindowManager.LayoutParams()
+        layoutParams.copyFrom(window?.attributes)
+        layoutParams.width = (resources.displayMetrics.widthPixels * 0.8).toInt() // 80% of screen width
+        window?.attributes = layoutParams
     }
 
-    private fun updateSignupButtonState() {
-        val username = binding.usernameEditText.text.toString()
-        val email = binding.emailEditText.text.toString()
-        val password = binding.passwordEditText.text.toString()
-
-        val isFormFilled = email.isNotEmpty() && password.isNotEmpty() && username.isNotEmpty()
-
-        binding.signupButton.isEnabled = isFormFilled
-    }
 
 
 

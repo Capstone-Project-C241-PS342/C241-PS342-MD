@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bangkit.capstone.gestura.remote.repository.UserRepository
 import com.bangkit.capstone.gestura.remote.request.LoginRequest
-import com.bangkit.capstone.gestura.remote.request.RegisterRequest
 import com.dicoding.picodiploma.gestura.data.pref.UserModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,7 +23,7 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
                 val response = repository.login(request)
 
                 if (response.token != null) {
-                    val user = UserModel(email = email, token = response.token, isLogin = true)
+                    val user = UserModel(email = email, token = response.token, profile_picture_url =  response.profile_picture_url ?: "", isLogin = true, username = response.username ?:"")
                     saveSession(user)
                     Result.success(user)
                 } else {

@@ -7,6 +7,18 @@
     android:background="@color/navy"
     tools:context=".view.main.MainActivity">
 
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navbar">
+
+    </FrameLayout>
+
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal"
         android:layout_width="wrap_content"
@@ -16,56 +28,6 @@
         app:layout_constraintGuide_percent="0.1"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_profile"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/tv_selamat"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintTop_toTopOf="@id/iv_profile"
-        tools:text="Selamat Datang,"
-        android:textColor="@color/abugestura"
-        android:fontFamily="@font/poppins_regular"
-        android:textSize="12sp"/>
-
-    <TextView
-        android:id="@+id/tv_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_selamat"
-        app:layout_constraintBottom_toBottomOf="@id/iv_profile"
-        tools:text="Username"
-        android:textColor="@color/white"
-        android:fontFamily="@font/poppins_extrabold"
-        android:textSize="30.9sp"
-        />
-
-    <Button
-        android:id="@+id/btn_streak"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/streak_btn"
-        app:backgroundTint="@color/ijogestura"
-        android:text="5"
-        android:fontFamily="@font/poppins_extrabold"
-        android:textColor="@color/navy"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal"
-        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal3"
@@ -73,7 +35,7 @@
         android:layout_height="64dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.7"
+        app:layout_constraintGuide_percent="0.87"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -82,9 +44,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:gravity="bottom"
-        android:backgroundTint="@color/trans"
-        app:fabCradleMargin="10dp"
-        app:fabCradleVerticalOffset="10dp"
+        android:backgroundTint="@color/ijogestura"
+        app:fabCradleMargin="100dp"
+        app:fabCradleVerticalOffset="100dp"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="BottomAppBar">
@@ -101,35 +63,40 @@
             app:menu="@menu/bottom_nav_menu"
             android:background="@drawable/transparent_background"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
-    
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnscan_shadow"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:elevation="0dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/unpressed"
+        android:backgroundTint="@color/borderijosignupgestura"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/btnscan"
+        app:layout_constraintEnd_toEndOf="@id/btnscan"
+        app:layout_constraintStart_toStartOf="@id/btnscan"
+        app:layout_constraintTop_toTopOf="@id/btnscan" />
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/btnscan"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="-50dp"
-        app:backgroundTint="@color/ijogestura"
-        app:srcCompat="@drawable/scan"
-        app:rippleColor="@color/ijogestura"
-        app:pressedTranslationZ="-10dp"
+        android:layout_marginBottom="-40dp"
+        app:cardCornerRadius="15dp"
+        android:layout_gravity="center"
+        android:background="@drawable/unpressed"
+        android:backgroundTint="@color/ijogestura"
         app:layout_constraintBottom_toTopOf="@id/navbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:alpha="0"
-        android:background="@drawable/button_outline"
-        app:backgroundTint="@color/ijogestura"
-        android:text="@string/logout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal3"
-        tools:alpha="100" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/scanbodyfix" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,16 +1,18 @@
-<!-- res/drawable/custom_dialog_bg.xml -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- State when not pressed -->
+    <item android:state_pressed="false">
         <shape android:shape="rectangle">
-            <solid android:color="@color/trans"/> <!-- Warna transparan -->
-            <corners android:radius="20dp"/>
-            <stroke android:width="2dp" android:color="@color/ijogestura"/>
+            <solid android:color="@color/navy"/> <!-- Background color -->
+            <corners android:radius="20dp"/> <!-- Corner radius -->
         </shape>
     </item>
-    <item>
+
+    <!-- State when pressed -->
+    <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/navy"/> <!-- Warna latar belakang utama -->
-            <corners android:radius="20dp"/>
+            <solid android:color="@color/navy"/> <!-- Background color when pressed -->
+            <corners android:radius="20dp"/> <!-- Corner radius -->
         </shape>
     </item>
-</layer-list>
+</selector>
