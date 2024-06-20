@@ -1,9 +1,11 @@
 package com.bangkit.capstone.gestura.remote
 
+import com.bangkit.capstone.gestura.data.pref.LearningMediaModel
 import com.bangkit.capstone.gestura.remote.request.LoginRequest
 import com.bangkit.capstone.gestura.remote.request.RegisterRequest
 import com.bangkit.capstone.gestura.remote.response.LoginResponse
 import com.bangkit.capstone.gestura.remote.response.RegisterResponse
+import com.dicoding.picodiploma.gestura.data.pref.UserModel
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -38,6 +40,13 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): LoginResponse
+
+    @JvmSuppressWildcards
+    @GET("/api/auth/user")
+    suspend fun getUser(): UserModel
+
+    @GET("api/auth/learning_media/")
+    suspend fun getLearningMedia(): List<LearningMediaModel>
 
 }
 
