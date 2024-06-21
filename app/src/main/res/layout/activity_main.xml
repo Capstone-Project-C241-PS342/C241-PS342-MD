@@ -38,31 +38,28 @@
         app:layout_constraintGuide_percent="0.87"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
+    <RelativeLayout
         android:id="@+id/navbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:gravity="bottom"
-        android:backgroundTint="@color/ijogestura"
-        app:fabCradleMargin="100dp"
-        app:fabCradleVerticalOffset="100dp"
-        app:fabSize="normal"
+        android:layout_width="400dp"
+        android:layout_height="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="BottomAppBar">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+       >
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
+            android:paddingHorizontal="20dp"
             app:labelVisibilityMode="unlabeled"
-            app:compatShadowEnabled="true"
-            app:itemRippleColor="@color/ijogestura"
-            app:itemIconTint="@color/navy"
+            app:itemRippleColor="@color/trans"
+            app:itemIconTint="@drawable/item_selector"
             app:menu="@menu/bottom_nav_menu"
-            android:background="@drawable/transparent_background"/>
-    </com.google.android.material.bottomappbar.BottomAppBar>
+            app:itemIconSize="30dp"
+            android:background="@drawable/rounded_corner"
+            />
+    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btnscan_shadow"

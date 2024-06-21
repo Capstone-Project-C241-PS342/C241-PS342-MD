@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
         ViewModelFactory.getInstance(this)
     } //testing onlu
-    private lateinit var mainViewModel: MainViewModel
+
 
 
 
@@ -34,25 +34,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         replaceFragment(HomeFragment())
 
-//        viewModel.getSession().observe(this) { user ->
-//            if (!user.isLogin) {
-//                startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
-//                finish()
-//            } else {
-//                Log.d("maininfo", "Username: ${user.email}, Profile Picture URL: ${user.profile_picture_url}")
-////                binding.tvUsername.text = user.email  //cek user model
-////                binding.tvSelamat.text = greetingmessage()
-//                Glide.with(this)
-//                    .load(user.profile_picture_url)
-//                    .error(R.drawable.ic_placeholder)
-//                    .into(binding.ivtest)
-//                viewModel.fetchUserProfile(user.token)
-//            }
-//        }
-
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        val token = "your_token_here"
-        mainViewModel.fetchUserProfile(token)
 
 
         binding.navigation.setOnItemSelectedListener {
