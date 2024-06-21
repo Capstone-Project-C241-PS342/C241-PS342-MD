@@ -55,8 +55,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,40 +69,40 @@ class HomeFragment : Fragment() {
             if (!user.isLogin) {
                 startActivity(Intent(requireContext(), WelcomeActivity::class.java))
                 requireActivity().finish()
-            } else { binding.tvUsername.text = "Teman Dengar"
-                binding.tvSelamat.text = greetingmessage()
-                binding.ivProfile.setImageResource(R.drawable.ic_placeholder)
-
-                binding.cardCover.setImageResource(R.drawable.thumbnail)
-                binding.cardTitle.text = "Bahasa Isyarat Indonesia (BISINDO) \"ALPHABET\""
-                binding.cardDesc.text = "Hai, saya terlahir Tuli, dan suka berbagi edukasi tentang Tuli, Dunia Tuli, Budaya Tuli dan Bahasa Isyarat"
-                binding.buttoncard.setOnClickListener {
-                    val youtubeUrl = "https://www.youtube.com/watch?v=96j5Uv3rM0A"
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
-
-                    if (intent.resolveActivity(requireContext().packageManager) != null) {
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(requireContext(), "No application found to open YouTube link", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                binding.cardCover.setImageResource(R.drawable.thumbnail1)
-                binding.cardTitle.text = "ABJAD JARI BISINDO"
-                binding.cardDesc.text = ""
-                binding.buttoncard1.setOnClickListener {
-                    val youtubeUrl = "https://www.youtube.com/watch?v=Py6Ch1vBvL0"
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
-
-                    if (intent.resolveActivity(requireContext().packageManager) != null) {
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(requireContext(), "No application found to open YouTube link", Toast.LENGTH_SHORT).show()
-                    }
-                } }
+            } else { }
         }
 
+        binding.tvUsername.text = "Teman Dengar"
+        binding.tvSelamat.text = greetingmessage()
+        binding.ivProfile.setImageResource(R.drawable.ic_placeholder)
 
+        binding.cardCover.setImageResource(R.drawable.thumbnail)
+        binding.cardTitle.text = "Bahasa Isyarat Indonesia (BISINDO) \"ALPHABET\""
+        binding.cardDesc.text = "Hai, saya terlahir Tuli, dan suka berbagi edukasi tentang Tuli, Dunia Tuli, Budaya Tuli dan Bahasa Isyarat"
+        binding.buttoncard.setOnClickListener {
+            val youtubeUrl = "https://www.youtube.com/watch?v=96j5Uv3rM0A"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
+
+            if (intent.resolveActivity(requireContext().packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "No application found to open YouTube link", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.cardCover1.setImageResource(R.drawable.thumbnail1)
+        binding.cardTitle1.text = "ABJAD JARI BISINDO"
+        binding.cardDesc1.text = ""
+        binding.buttoncard1.setOnClickListener {
+            val youtubeUrl = "https://www.youtube.com/watch?v=Py6Ch1vBvL0"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
+
+            if (intent.resolveActivity(requireContext().packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "No application found to open YouTube link", Toast.LENGTH_SHORT).show()
+            }
+        }
 
 
 
@@ -147,12 +146,6 @@ class HomeFragment : Fragment() {
 
 
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.ivProfile, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
-        }.start()
-
         val name = ObjectAnimator.ofFloat(binding.tvUsername, View.ALPHA, 1f).setDuration(100)
         val message = ObjectAnimator.ofFloat(binding.tvSelamat, View.ALPHA, 1f).setDuration(100)
 

@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/iv_profile"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,29 +43,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@id/tv_learningmedia"
-
-        app:layout_constraintTop_toTopOf="@id/tv_learningmedia"
+        app:layout_constraintStart_toEndOf="@id/iv_profile"
+        app:layout_constraintTop_toBottomOf="@id/tv_selamat"
+        app:layout_constraintBottom_toBottomOf="@id/iv_profile"
         tools:text="Username"
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_black"
-        android:textSize="30.9sp"
+        android:textSize="20sp"
         />
-
-    <Button
-        android:id="@+id/btn_streak"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/streak_btn"
-        app:backgroundTint="@color/ijogestura"
-        android:text="5"
-        android:fontFamily="@font/poppins_extrabold"
-        android:textColor="@color/navy"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal"
-        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal3"
@@ -120,7 +105,7 @@
                 android:maxLines="1"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/navy"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:layout_marginHorizontal="10dp"/>
 
             <TextView
@@ -185,7 +170,7 @@
                 android:maxLines="1"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/navy"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:layout_marginHorizontal="10dp"/>
 
             <TextView

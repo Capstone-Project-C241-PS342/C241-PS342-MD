@@ -1,3 +1,4 @@
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import com.bangkit.capstone.gestura.R
 import com.bangkit.capstone.gestura.databinding.FragmentProfileBinding
 import com.bangkit.capstone.gestura.view.ViewModelFactory
 import com.bangkit.capstone.gestura.view.main.MainViewModel
+import com.bangkit.capstone.gestura.view.welcome.WelcomeActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -37,7 +39,8 @@ class ProfileFragment : Fragment() {
         binding.profile.text = "Teman Dengar"
         binding.logoutButton.setOnClickListener {
             viewModel.logout()
-            requireActivity().finish()
+            val intent = Intent(requireActivity(), WelcomeActivity::class.java)
+            startActivity(intent)
         }
 
     }
