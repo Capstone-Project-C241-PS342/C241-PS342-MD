@@ -3,11 +3,13 @@ package com.bangkit.capstone.gestura.view.main
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
@@ -53,10 +55,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-        recyclerView = view.findViewById(R.id.rv_learningmedia)
-        recyclerView.layoutManager = LinearLayoutManager(context)    //adapternya belum connect
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,37 +65,47 @@ class HomeFragment : Fragment() {
         fetchLearningMedia()
 
 
-//        binding.rv_learningmedia.layoutManager = LinearLayoutManager(this)
-//        binding.rv_learningmedia.adapter = adapter
-//        binding.rv_learningmedia.setHasFixedSize(true)
-
         viewModel.getSession().observe(viewLifecycleOwner) { user ->
             if (!user.isLogin) {
                 startActivity(Intent(requireContext(), WelcomeActivity::class.java))
                 requireActivity().finish()
+            } else { }
+        }
+
+        binding.tvUsername.text = "Teman Dengar"
+        binding.tvSelamat.text = greetingmessage()
+        binding.ivProfile.setImageResource(R.drawable.ic_placeholder)
+
+        binding.cardCover.setImageResource(R.drawable.thumbnail)
+        binding.cardTitle.text = "Bahasa Isyarat Indonesia (BISINDO) \"ALPHABET\""
+        binding.cardDesc.text = "Hai, saya terlahir Tuli, dan suka berbagi edukasi tentang Tuli, Dunia Tuli, Budaya Tuli dan Bahasa Isyarat"
+        binding.buttoncard.setOnClickListener {
+            val youtubeUrl = "https://www.youtube.com/watch?v=96j5Uv3rM0A"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
+
+            if (intent.resolveActivity(requireContext().packageManager) != null) {
+                startActivity(intent)
             } else {
-                Log.d("UserInfo", "Username: ${user.username}, Profile Picture URL: ${user.profile_picture_url}")
-                binding.tvUsername.text = user.username
-                binding.tvSelamat.text = greetingmessage()
-                Glide.with(this)
-                    .load(user.profile_picture_url)
-                    .error(R.drawable.ic_placeholder)
-                    .into(binding.ivProfile)
-                viewModel.fetchUserProfile(user.token)
+                Toast.makeText(requireContext(), "No application found to open YouTube link", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.cardCover1.setImageResource(R.drawable.thumbnail1)
+        binding.cardTitle1.text = "ABJAD JARI BISINDO"
+        binding.cardDesc1.text = ""
+        binding.buttoncard1.setOnClickListener {
+            val youtubeUrl = "https://www.youtube.com/watch?v=Py6Ch1vBvL0"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
+
+            if (intent.resolveActivity(requireContext().packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "No application found to open YouTube link", Toast.LENGTH_SHORT).show()
             }
         }
 
 
 
-
-//        viewModel.userProfile.observe(viewLifecycleOwner) { userProfile ->
-//            binding.tvUsername.text =
-//            Glide.with(this)
-//                .load(userProfile.profilePictureUrl)
-//                .into(binding.ivProfile)
-//        }
-
-        setupAction()
         playAnimation()
     }
 
@@ -134,26 +143,14 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun setupAction() {
-        binding.logoutButton.setOnClickListener {
-            viewModel.logout()
-            requireActivity().finish()
-        }
-    }
+
 
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.ivProfile, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
-        }.start()
-
         val name = ObjectAnimator.ofFloat(binding.tvUsername, View.ALPHA, 1f).setDuration(100)
         val message = ObjectAnimator.ofFloat(binding.tvSelamat, View.ALPHA, 1f).setDuration(100)
-        val logout = ObjectAnimator.ofFloat(binding.logoutButton, View.ALPHA, 1f).setDuration(100)
 
         AnimatorSet().apply {
-            playSequentially(name, message, logout)
+            playSequentially(name, message)
             startDelay = 100
         }.start()
     }

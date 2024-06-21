@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/iv_profile"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,23 +49,8 @@
         tools:text="Username"
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_black"
-        android:textSize="30.9sp"
+        android:textSize="20sp"
         />
-
-    <Button
-        android:id="@+id/btn_streak"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/streak_btn"
-        app:backgroundTint="@color/ijogestura"
-        android:text="5"
-        android:fontFamily="@font/poppins_extrabold"
-        android:textColor="@color/navy"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal"
-        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal3"
@@ -88,31 +73,136 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_learningmedia"
-        android:layout_width="wrap_content"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="horizontal"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardBackgroundColor="@color/ijogestura"
         app:layout_constraintTop_toBottomOf="@id/tv_learningmedia"
-        app:layout_constraintStart_toStartOf="@id/tv_learningmedia"
-        />
+        app:layout_constraintStart_toStartOf="@id/tv_learningmedia">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/card_cover"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/card_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="Title"
+                android:maxLines="1"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/navy"
+                android:textSize="20sp"
+                android:layout_marginHorizontal="10dp"/>
+
+            <TextView
+                android:id="@+id/card_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="Description"
+                android:maxLines="1"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/abugestura"
+                android:textSize="14sp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="-10dp"/>
+
+            <Button
+                android:id="@+id/buttoncard"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingBottom="2dp"
+                android:layout_gravity="end"
+                android:background="@drawable/button_solid"
+                app:backgroundTint="@color/navy"
+                android:text="Lihat"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="16sp"
+                />
+
+        </LinearLayout>
 
 
+    </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="0dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:alpha="0"
-        android:background="@drawable/button_outline"
-        app:backgroundTint="@color/ijogestura"
-        android:text="@string/logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal3"
-        tools:alpha="100" />
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardBackgroundColor="@color/ijogestura"
+        app:layout_constraintTop_toBottomOf="@id/card"
+        app:layout_constraintStart_toStartOf="@id/tv_learningmedia">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/card_cover1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/card_title1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="Title"
+                android:maxLines="1"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/navy"
+                android:textSize="20sp"
+                android:layout_marginHorizontal="10dp"/>
+
+            <TextView
+                android:id="@+id/card_desc1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="Description"
+                android:maxLines="1"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/abugestura"
+                android:textSize="14sp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="-10dp"/>
+
+            <Button
+                android:id="@+id/buttoncard1"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingBottom="2dp"
+                android:layout_gravity="end"
+                android:background="@drawable/button_solid"
+                app:backgroundTint="@color/navy"
+                android:text="Lihat"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="16sp"
+                />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

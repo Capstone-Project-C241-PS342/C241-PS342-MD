@@ -1,16 +1,24 @@
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.bangkit.capstone.gestura.R
 import com.bangkit.capstone.gestura.databinding.FragmentProfileBinding
+import com.bangkit.capstone.gestura.view.ViewModelFactory
+import com.bangkit.capstone.gestura.view.main.MainViewModel
+import com.bangkit.capstone.gestura.view.welcome.WelcomeActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class ProfileFragment : Fragment() {
 
+    private val viewModel by viewModels<MainViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
     private lateinit var binding: FragmentProfileBinding // atau sesuai binding yang Anda gunakan
 
     override fun onCreateView(
@@ -27,26 +35,17 @@ class ProfileFragment : Fragment() {
         // Contoh URL gambar profil, bisa diganti dengan URL asli dari user
         val profilePictureUrl: String? = getUserProfilePictureUrl() // Method yang mengembalikan URL gambar profil user
 
-        // Gunakan Glide untuk memuat gambar
-        loadProfileImage(profilePictureUrl)
+        binding.ivprofile.setImageResource(R.drawable.ic_placeholder)
+        binding.profile.text = "Teman Dengar"
+        binding.logoutButton.setOnClickListener {
+            viewModel.logout()
+            val intent = Intent(requireActivity(), WelcomeActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
-    private fun loadProfileImage(url: String?) {
-        if (!url.isNullOrEmpty()) {
-            Log.d("ProfileFragment", "Loading profile image from URL: $url")
-            Glide.with(this)
-                .load(url)
-                .apply(
-                    RequestOptions()
-                        .placeholder(R.drawable.ic_placeholder)
-                        .error(R.drawable.ic_placeholder)
-                )
-                .into(binding.ivprofile)
-        } else {
-            Log.d("ProfileFragment", "Profile picture URL is null or empty")
-            // Tampilkan placeholder atau penanganan lainnya sesuai kebutuhan
-        }
-    }
+
 
 
     private fun getUserProfilePictureUrl(): String? {
