@@ -8,14 +8,11 @@
     <color name="borderijosignupgestura">#80CDE855</color>
     <color name="itemgestura">#141F23</color>
     <color name="abugestura">#808080</color>
-<<<<<<< HEAD
 
     <color name="bounding_box_color">#FF9800</color>
 
 
-=======
     <color name="trans">#00FFFFFF</color>
->>>>>>> origin/main
 
 
 </resources>

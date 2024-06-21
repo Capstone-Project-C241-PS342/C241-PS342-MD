@@ -9,28 +9,48 @@
     <androidx.camera.view.PreviewView
         android:id="@+id/viewFinder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-    <com.bangkit.capstone.gestura.view.detectmovement.OverlayView
-        android:id="@+id/overlay"
+        <com.bangkit.capstone.gestura.view.detectmovement.OverlayView
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="629dp" />
+    </androidx.camera.view.PreviewView>
+
+
+    <TextView
+        android:id="@+id/tvInstruction"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:background="@color/ijogestura"
+        android:padding="16dp"
+        android:text="Peragakan huruf A-Z dalam BISINDO dan aplikasi akan mendeteksi gerakanmu :"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:fontFamily="@font/poppins_black"
+        app:layout_constraintBottom_toTopOf="@id/gesturaLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewFinder" />
 
     <TextView
         android:id="@+id/tvResult"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#BFFFFFFF"
+        android:background="@color/trans"
         android:lines="3"
         android:maxLines="3"
         android:padding="16dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Result" />
+        android:fontFamily="@font/poppins_bold"
+        android:layout_marginEnd="80dp"
+    android:layout_marginBottom="-57dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:text="Result" />
+
 
     <TextView
         android:id="@+id/tvInferenceTime"
@@ -45,5 +65,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Inference Time" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.92" />
+
+    <ImageView
+        android:id="@+id/gesturaLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
